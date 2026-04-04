@@ -21,23 +21,13 @@
 	  <Folder Include="Areas\Admin\Controllers\" />
 	  <Folder Include="Areas\Admin\DTOS\Request\" />
 	  <Folder Include="Areas\Admin\DTOS\Response\" />
-	  <Folder Include="Areas\Admin\Interfaces\IReposatory\" />
-	  <Folder Include="Areas\Admin\Interfaces\IUnitOfWork\" />
 	  <Folder Include="Areas\Admin\Services\" />
 	  <Folder Include="Areas\Identity\Controllers\" />
-	  <Folder Include="Areas\Identity\Interfaces\IReposatory\" />
-	  <Folder Include="Areas\Identity\Interfaces\IUnitOfWork\" />
 	  <Folder Include="Areas\Identity\Services\" />
 	  <Folder Include="Areas\User\Controllers\" />
-	  <Folder Include="Areas\User\Interfaces\IReposatory\" />
-	  <Folder Include="Areas\User\Interfaces\IUnitOfWork\" />
 	  <Folder Include="Areas\User\Services\" />
 	  <Folder Include="Areas\Worker\Controllers\" />
-	  <Folder Include="Areas\Worker\Interfaces\IReposatory\" />
-	  <Folder Include="Areas\Worker\Interfaces\IUnitOfWork\" />
 	  <Folder Include="Areas\Worker\Services\" />
 	  <Folder Include="EmailSender\" />
-	  <Folder Include="Rols\" />
-	  <Folder Include="UnitOfWork\" />
 	</ItemGroup>
 </Project>
