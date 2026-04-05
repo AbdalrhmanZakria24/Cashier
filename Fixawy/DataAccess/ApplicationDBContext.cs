@@ -15,5 +15,6 @@ namespace Fixawy.DataAccess
         public DbSet<Review> reviews { get; set; }
         public DbSet<Order> orders { get; set; }
         public DbSet<Service> services { get; set; }
+        public DbSet<Worker> workers { get; set; }
     }
 }

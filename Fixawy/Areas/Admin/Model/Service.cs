@@ -1,4 +1,4 @@
-﻿namespace Fixawy.Areas.User.Model
+﻿namespace Fixawy.Areas.Admin.Model
 {
     public class Service
     {

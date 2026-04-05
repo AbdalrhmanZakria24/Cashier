@@ -1,7 +1,10 @@
 
 using Fixawy.DataAccess;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using System.Globalization;
 
 namespace Fixawy
 {
@@ -33,13 +36,32 @@ namespace Fixawy
                 option.Password.RequireUppercase = true;
                 option.Password.RequireLowercase = true;
                 option.Password.RequireNonAlphanumeric = false;
-                option.SignIn.RequireConfirmedEmail = true;
+                option.SignIn.RequireConfirmedEmail = false;
                 option.SignIn.RequireConfirmedPhoneNumber = false;
                 option.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
                 option.Lockout.MaxFailedAccessAttempts = 5;
             })
                 .AddEntityFrameworkStores<ApplicationDBContext>()
                 .AddDefaultTokenProviders();
+
+            //Localization
+            builder.Services.AddLocalization(option => option.ResourcesPath = "Resources");
+
+            const string defaultCulture ="en";
+
+            var supportCulture = new[]
+            {
+                new CultureInfo(defaultCulture),
+                new CultureInfo("ar")
+            };
+
+            builder.Services.Configure<RequestLocalizationOptions>(options =>
+            {
+                options.DefaultRequestCulture = new RequestCulture(defaultCulture);
+                options.SupportedCultures = supportCulture;
+                options.SupportedUICultures = supportCulture;
+            });
+
             
                                        
             builder.Services.AddControllers();
@@ -56,8 +78,10 @@ namespace Fixawy
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseRequestLocalization(app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
 
             app.MapControllers();
 

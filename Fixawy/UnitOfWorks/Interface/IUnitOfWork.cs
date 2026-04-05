@@ -1,4 +1,4 @@
-﻿namespace Fixawy.UnitOfWork.Interface
+﻿namespace Fixawy.UnitOfWorks.Interface
 {
     public interface IUnitOfWork : IDisposable
     {
@@ -9,6 +9,7 @@
         public IReposatory<Service> Servicereposatory { get; }
         public IReposatory<Review> Reviewreposatory { get; }
         public IReposatory<WorkerSubscription> WorkerSubscriptionreposatory { get; }
+        public IReposatory<Worker> WorkerReposatory { get; }
         public Task CommitAsync();
     }
 }

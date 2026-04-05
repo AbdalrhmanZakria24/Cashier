@@ -22,12 +22,16 @@
 	  <Folder Include="Areas\Admin\DTOS\Request\" />
 	  <Folder Include="Areas\Admin\DTOS\Response\" />
 	  <Folder Include="Areas\Admin\Services\" />
-	  <Folder Include="Areas\Identity\Controllers\" />
-	  <Folder Include="Areas\Identity\Services\" />
 	  <Folder Include="Areas\User\Controllers\" />
+	  <Folder Include="Areas\User\DTOS\Request\" />
+	  <Folder Include="Areas\User\DTOS\Response\" />
 	  <Folder Include="Areas\User\Services\" />
 	  <Folder Include="Areas\Worker\Controllers\" />
+	  <Folder Include="Areas\Worker\DTOS\Request\" />
+	  <Folder Include="Areas\Worker\DTOS\Response\" />
 	  <Folder Include="Areas\Worker\Services\" />
 	  <Folder Include="EmailSender\" />
+	  <Folder Include="Utillity\" />
+	  <Folder Include="wwwroot\WorkerImages\" />
 	</ItemGroup>
 </Project>

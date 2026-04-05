@@ -1,6 +1,6 @@
-﻿using Fixawy.UnitOfWork.Interface;
+﻿using Fixawy.UnitOfWorks.Interface;
 
-namespace Fixawy.UnitOfWork
+namespace Fixawy.UnitOfWorks
 {
     public class UnitOfWork : IUnitOfWork
     {
@@ -13,6 +13,7 @@ namespace Fixawy.UnitOfWork
             IReposatory<Service> ServiceReposatory,
             IReposatory<Review> ReviewReposatory,
             IReposatory<WorkerSubscription> WorkerSubscriptionReposatory,
+            IReposatory<Worker> WorkerReposatory,
             ApplicationDBContext  dBContext)
         {
             this.SubscriptionPlanreposatory = SubscriptionPlanReposatory;
@@ -22,6 +23,7 @@ namespace Fixawy.UnitOfWork
             this.Servicereposatory = ServiceReposatory;
             this.Reviewreposatory = ReviewReposatory;
             this.WorkerSubscriptionreposatory = WorkerSubscriptionReposatory;
+            this.WorkerReposatory = WorkerReposatory;
             _dBContext = dBContext;
         }
 
@@ -32,6 +34,7 @@ namespace Fixawy.UnitOfWork
         public IReposatory<Service> Servicereposatory { get; }
         public IReposatory<Review> Reviewreposatory { get; }
         public IReposatory<WorkerSubscription> WorkerSubscriptionreposatory { get; }
+        public IReposatory<Worker> WorkerReposatory { get; }
 
         public void Dispose()
         {
