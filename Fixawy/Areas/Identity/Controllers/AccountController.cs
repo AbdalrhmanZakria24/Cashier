@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Fixawy.Areas.Identity.Controllers
 {
     [Area("Identity")]
-    [Route("[area]/[controller]")]
+    [Route("api/[area]/[controller]")]
     [ApiController]
     public class AccountController : ControllerBase
     {

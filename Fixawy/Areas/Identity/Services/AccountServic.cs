@@ -112,15 +112,15 @@ namespace Fixawy.Areas.Identity.Services
             await _userManager.AddToRoleAsync(adduser, Rl.Worker);
 
            
-            var addworker = new Admin.Model.Worker
-            {
-                userId = adduser.Id,
-                serviceId = registerWorker.serviceId,
-                Location = registerWorker.location,
-                NationalIdImage = imageName,
-            };
+            //var addworker = new Admin.Model.Worker
+            //{
+            //    userId = adduser.Id,
+            //    serviceId = registerWorker.serviceId,
+            //    Location = registerWorker.location,
+            //    NationalIdImage = imageName,
+            //};
 
-            await _unitOfWork.WorkerReposatory.CreateAsync(addworker, cancellationToken);
+            //await _unitOfWork.WorkerReposatory.CreateAsync(addworker, cancellationToken);
             await _unitOfWork.CommitAsync();
 
             return new IdentityResponse

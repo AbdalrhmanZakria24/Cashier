@@ -17,7 +17,7 @@
         public ApplicationUser ApplicationUser { get; set; }
 
         public int ServiceId { get; set; }
-        public Service Service { get; set; }
+        public Category Service { get; set; }
 
         public string Description { get; set; } = string.Empty;
 

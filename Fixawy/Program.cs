@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Scalar.AspNetCore;
 using System.Globalization;
 
 namespace Fixawy
@@ -71,10 +72,12 @@ namespace Fixawy
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.MapOpenApi();
-            }
+            //if (app.Environment.IsDevelopment())
+            //{
+            //    app.MapOpenApi();
+            //}
+            app.MapOpenApi();
+            app.MapScalarApiReference();
 
             app.UseHttpsRedirection();
 
