@@ -7,7 +7,6 @@ namespace Fixawy.UnitOfWorks
         private readonly ApplicationDBContext _dBContext;
 
         public UnitOfWork(
-            //IReposatory<SubscriptionPlan> SubscriptionPlanReposatory,
             IReposatory<SubscriptionLogs> SubscriptionsLogs,
             IReposatory<Subscription> Subscriptions,
             IReposatory<Plan> Plan,
@@ -15,12 +14,16 @@ namespace Fixawy.UnitOfWorks
             IReposatory<Order> OrderReposatory,
             IReposatory<Payment> PaymentReposatory,
             IReposatory<Category> ServiceReposatory,
-            IReposatory<Review> ReviewReposatory,
+            IReposatory<Branch> BranchReposatory,
             IReposatory<WorkerSubscription> WorkerSubscriptionReposatory,
-            //IReposatory<Worker> WorkerReposatory,
+            IReposatory<DeviceSync> DeviceSyncReposatory,
+            IReposatory<OrderItem> OrderItemReposatory,
+            IReposatory<Product> ProductReposatory,
+            IReposatory<SyncLogs> SyncLogsReposatory,
+            IReposatory<SyncQueue> SyncQueueReposatory,
+            IReposatory<Tenant> TenantReposatory,
             ApplicationDBContext  dBContext)
         {
-            //this.SubscriptionPlanreposatory = SubscriptionPlanReposatory;
             this.ApplicationUserreposatory = ApplicationUserReposatory;
             this.Subscription = Subscriptions;
             this.SubscriptionsLog = SubscriptionsLogs;
@@ -28,23 +31,31 @@ namespace Fixawy.UnitOfWorks
             this.Orderreposatory = OrderReposatory;
             this.Paymentreposatory = PaymentReposatory;
             this.Servicereposatory = ServiceReposatory;
-            this.Reviewreposatory = ReviewReposatory;
+            this.BranchReposatory = BranchReposatory;
             this.WorkerSubscriptionreposatory = WorkerSubscriptionReposatory;
-            //this.WorkerReposatory = WorkerReposatory;
+            this.DeviceSyncReposatory = DeviceSyncReposatory;
+            this.OrderItemReposatory = OrderItemReposatory;
+            this.ProductReposatory = ProductReposatory;
+            this.SyncLogsReposatory = SyncLogsReposatory;
+            this.SyncQueueReposatory = SyncQueueReposatory;
+            this.TenantReposatory = TenantReposatory;
             _dBContext = dBContext;
         }
-
-        //public IReposatory<SubscriptionPlan> SubscriptionPlanreposatory { get; }
         public IReposatory<ApplicationUser> ApplicationUserreposatory { get; }
         public IReposatory<Order> Orderreposatory { get; }
         public IReposatory<Payment> Paymentreposatory { get; }
         public IReposatory<Category> Servicereposatory { get; }
-        public IReposatory<Review> Reviewreposatory { get; }
+        public IReposatory<Branch> BranchReposatory { get; }
         public IReposatory<WorkerSubscription> WorkerSubscriptionreposatory { get; }
+        public IReposatory<DeviceSync> DeviceSyncReposatory { get; }
+        public IReposatory<OrderItem> OrderItemReposatory { get; }
+        public IReposatory<Product> ProductReposatory { get; }
+        public IReposatory<SyncLogs> SyncLogsReposatory { get; }
+        public IReposatory<SyncQueue> SyncQueueReposatory { get; }
+        public IReposatory<Tenant> TenantReposatory { get; }
         public IReposatory<Subscription> Subscription { get; }
         public IReposatory<SubscriptionLogs> SubscriptionsLog { get; }
         public IReposatory<Plan> Plan { get; }
-        //public IReposatory<Worker> WorkerReposatory { get; }
 
         public void Dispose()
         {

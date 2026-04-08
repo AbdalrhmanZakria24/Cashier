@@ -71,6 +71,14 @@ namespace Fixawy
 
             var app = builder.Build();
 
+            //dbInitializer
+            using (var scope = app.Services.CreateScope())
+            {
+                var dbInitializer = scope.ServiceProvider.GetRequiredService<IDBInitializar>();
+                dbInitializer.Initialize();
+            }
+
+
             // Configure the HTTP request pipeline.
             //if (app.Environment.IsDevelopment())
             //{

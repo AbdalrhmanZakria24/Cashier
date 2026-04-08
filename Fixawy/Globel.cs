@@ -13,3 +13,5 @@ global using Fixawy.Areas.Identity.DTOS.Request;
 global using Fixawy.Areas.Identity.DTOS.Response;
 global using Fixawy.Rols;
 global using System.ComponentModel.DataAnnotations;
+global using Fixawy.DBSeder.Intarface;
+global using Fixawy.DBSeder;

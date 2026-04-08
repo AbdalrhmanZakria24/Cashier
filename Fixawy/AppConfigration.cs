@@ -7,13 +7,16 @@ namespace Fixawy
         public static void RegisterConfig(this IServiceCollection services )
         {
             // Repository
-            //services.AddScoped<IReposatory<SubscriptionPlan>, Repositories.Reposatory<SubscriptionPlan>>();
             services.AddScoped<IReposatory<ApplicationUser>, Repositories.Reposatory<ApplicationUser>>();
-            services.AddScoped<IReposatory<Order>, Repositories.Reposatory<Order>>();
-            //services.AddScoped<IReposatory<Worker>, Repositories.Reposatory<Worker>>();
+            services.AddScoped<IReposatory<Branch>, Repositories.Reposatory<Branch>>();
             services.AddScoped<IReposatory<Payment>, Repositories.Reposatory<Payment>>();
             services.AddScoped<IReposatory<Category>, Repositories.Reposatory<Category>>();
-            services.AddScoped<IReposatory<Review>, Repositories.Reposatory<Review>>();
+            services.AddScoped<IReposatory<Order>, Repositories.Reposatory<Order>>();
+            services.AddScoped<IReposatory<OrderItem>, Repositories.Reposatory<OrderItem>>();
+            services.AddScoped<IReposatory<Product>, Repositories.Reposatory<Product>>();
+            services.AddScoped<IReposatory<SyncLogs>, Repositories.Reposatory<SyncLogs>>();
+            services.AddScoped<IReposatory<SyncQueue>, Repositories.Reposatory<SyncQueue>>();
+            services.AddScoped<IReposatory<Tenant>, Repositories.Reposatory<Tenant>>();
             services.AddScoped<IReposatory<WorkerSubscription>, Repositories.Reposatory<WorkerSubscription>>();
             services.AddScoped<IReposatory<SubscriptionLogs>, Repositories.Reposatory<SubscriptionLogs>>();
             services.AddScoped<IReposatory<Subscription>, Repositories.Reposatory<Subscription>>();
@@ -24,6 +27,9 @@ namespace Fixawy
 
             //Serviecs
             services.AddScoped<IAccountService, AccountServic>();
+
+            //Db Initializar
+            services.AddScoped<IDBInitializar, DBInitializar>();
         }
     }
 }
