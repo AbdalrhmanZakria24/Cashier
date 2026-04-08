@@ -4,6 +4,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>cc2e3c6d-48c8-4281-9c0d-3e917a7d568e</UserSecretsId>
 	  
   </PropertyGroup>
 	<ItemGroup>
@@ -26,7 +27,6 @@
 	  <Folder Include="Areas\User\DTOS\Request\" />
 	  <Folder Include="Areas\User\DTOS\Response\" />
 	  <Folder Include="Areas\User\Services\" />
-	  <Folder Include="EmailSender\" />
 	  <Folder Include="Utillity\" />
 	  <Folder Include="wwwroot\WorkerImages\" />
 	</ItemGroup>

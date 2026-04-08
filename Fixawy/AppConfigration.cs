@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using Fixawy.EmailSender.Interface;
+using System.Runtime.CompilerServices;
 
 namespace Fixawy
 {
@@ -30,6 +31,9 @@ namespace Fixawy
 
             //Db Initializar
             services.AddScoped<IDBInitializar, DBInitializar>();
+
+            //Email Sender
+            services.AddScoped<IEmailSeder, EmailSender.EmailSender>();
         }
     }
 }
