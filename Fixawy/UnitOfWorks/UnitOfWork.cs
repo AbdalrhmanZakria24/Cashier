@@ -1,5 +1,4 @@
-﻿using Fixawy.Model;
-using Fixawy.UnitOfWorks.Interface;
+﻿using Fixawy.UnitOfWorks.Interface;
 
 namespace Fixawy.UnitOfWorks
 {

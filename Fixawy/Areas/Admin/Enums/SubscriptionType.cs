@@ -1,4 +1,4 @@
-﻿namespace Fixawy.Enums
+﻿namespace Fixawy.Areas.Admin.Enums
 {
     public enum SubscriptionType
     {

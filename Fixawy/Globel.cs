@@ -2,6 +2,7 @@
 global using Fixawy.Areas.User.Model;
 global using Fixawy.Areas.Worker.Model;
 global using Fixawy.Areas.Admin.Model;
+global using Fixawy.Areas.Admin.Enums;
 global using Fixawy.DataAccess;
 global using Fixawy.Repositories.Interface;
 global using Fixawy.Areas.Identity.Services.Interface;
@@ -11,3 +12,4 @@ global using Fixawy.UnitOfWorks;
 global using Fixawy.Areas.Identity.DTOS.Request;
 global using Fixawy.Areas.Identity.DTOS.Response;
 global using Fixawy.Rols;
+global using System.ComponentModel.DataAnnotations;

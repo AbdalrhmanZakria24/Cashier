@@ -37,7 +37,7 @@ namespace Fixawy
                 option.Password.RequireUppercase = true;
                 option.Password.RequireLowercase = true;
                 option.Password.RequireNonAlphanumeric = false;
-                option.SignIn.RequireConfirmedEmail = false;
+                option.SignIn.RequireConfirmedEmail = true;
                 option.SignIn.RequireConfirmedPhoneNumber = false;
                 option.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
                 option.Lockout.MaxFailedAccessAttempts = 5;

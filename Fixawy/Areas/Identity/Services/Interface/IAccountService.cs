@@ -2,6 +2,6 @@
 {
     public interface IAccountService
     {
-        public Task<IdentityResponse> RegisterWorker(RegisterWorker registerWorker, CancellationToken cancellationToken);
+       // public Task<IdentityResponse> RegisterWorker(, CancellationToken cancellationToken);
     }
 }

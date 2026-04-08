@@ -1,23 +1,26 @@
 ﻿using Fixawy.Areas.Admin.Enums;
-using Fixawy.Model;
 
 namespace Fixawy.Areas.Admin.Model
 {
     public class SubscriptionLogs
     {
-        public string Id { get; set; }
+        public long Id { get; set; }
 
-        public string TenantId { get; set; }
-        public string UserId { get; set; }
+        public long TenantId { get; set; } 
+        public Tenant Tenants { get; set; } = null!;
 
-        public string SubscriptionId { get; set; }
 
+        public string UserId { get; set; } = string.Empty;
+        public ApplicationUser ApplicationUser { get; set; } = null!; 
+
+        public long SubscriptionId { get; set; } 
         public SubscriptionAction Action { get; set; }
-        public Subscription Subscription { get; set; }
+        public Subscription Subscription { get; set; } = null!;
 
         // Snapshot
-        public string PlanId { get; set; }
-        public string PlanName { get; set; }
+        public long PlanId { get; set; } 
+        public Plan Plan { get; set; } = null!;
+        public string PlanName { get; set; } = string.Empty;
         public decimal Price { get; set; }
         public int Duration { get; set; }
 

@@ -10,7 +10,7 @@ namespace Fixawy.DataAccess
         var optionsBuilder = new DbContextOptionsBuilder<ApplicationDBContext>();
 
         optionsBuilder.UseSqlServer(
-            "Data Source=.;Initial Catalog=Fixawy;Integrated Security=True;TrustServerCertificate=True"
+            "Data Source=.;Initial Catalog=CashierPos;Integrated Security=True;TrustServerCertificate=True"
         );
 
         return new ApplicationDBContext(optionsBuilder.Options);

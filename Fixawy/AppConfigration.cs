@@ -1,5 +1,4 @@
-﻿using Fixawy.Model;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 
 namespace Fixawy
 {
