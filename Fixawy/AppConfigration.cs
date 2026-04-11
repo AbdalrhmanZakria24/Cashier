@@ -9,6 +9,7 @@ namespace Fixawy
         {
             // Repository
             services.AddScoped<IReposatory<ApplicationUser>, Repositories.Reposatory<ApplicationUser>>();
+            services.AddScoped<IReposatory<ApplicationuserOtp>, Repositories.Reposatory<ApplicationuserOtp>>();
             services.AddScoped<IReposatory<Branch>, Repositories.Reposatory<Branch>>();
             services.AddScoped<IReposatory<Payment>, Repositories.Reposatory<Payment>>();
             services.AddScoped<IReposatory<Category>, Repositories.Reposatory<Category>>();
@@ -16,6 +17,7 @@ namespace Fixawy
             services.AddScoped<IReposatory<OrderItem>, Repositories.Reposatory<OrderItem>>();
             services.AddScoped<IReposatory<Product>, Repositories.Reposatory<Product>>();
             services.AddScoped<IReposatory<SyncLogs>, Repositories.Reposatory<SyncLogs>>();
+            services.AddScoped<IReposatory<DeviceSync>, Repositories.Reposatory<DeviceSync>>();
             services.AddScoped<IReposatory<SyncQueue>, Repositories.Reposatory<SyncQueue>>();
             services.AddScoped<IReposatory<Tenant>, Repositories.Reposatory<Tenant>>();
             services.AddScoped<IReposatory<WorkerSubscription>, Repositories.Reposatory<WorkerSubscription>>();
@@ -27,13 +29,15 @@ namespace Fixawy
             services.AddScoped<IUnitOfWork,UnitOfWork>();
 
             //Serviecs
-            services.AddScoped<IAccountService, AccountServic>();
+            services.AddScoped<IAccountService, AccountService>();
+            services.AddTransient<ITokenService, TokenService>();
 
             //Db Initializar
             services.AddScoped<IDBInitializar, DBInitializar>();
 
             //Email Sender
-            services.AddScoped<IEmailSeder, EmailSender.EmailSender>();
+            services.AddScoped<IEmailSeder, EmailSender.EmailSender>(); 
+
         }
     }
 }

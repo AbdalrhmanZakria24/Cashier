@@ -15,3 +15,5 @@ global using Fixawy.Rols;
 global using System.ComponentModel.DataAnnotations;
 global using Fixawy.DBSeder.Intarface;
 global using Fixawy.DBSeder;
+global using Fixawy.ResponseStatus;
+global using Fixawy.EmailSender.Interface;

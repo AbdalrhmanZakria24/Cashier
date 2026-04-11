@@ -1,11 +1,14 @@
 
 using Fixawy.DataAccess;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Scalar.AspNetCore;
 using System.Globalization;
+using System.Text;
 
 namespace Fixawy
 {
@@ -45,10 +48,32 @@ namespace Fixawy
                 .AddEntityFrameworkStores<ApplicationDBContext>()
                 .AddDefaultTokenProviders();
 
+            //Jwt
+
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer =builder.Configuration["Jwt:Issuer"],
+                        ValidAudience =builder.Configuration["Jwt:Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(
+                                  Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
+                    };
+                });
+
             //Localization
             builder.Services.AddLocalization(option => option.ResourcesPath = "Resources");
 
-            const string defaultCulture ="en";
+            const string defaultCulture = "en";
 
             var supportCulture = new[]
             {
@@ -63,8 +88,8 @@ namespace Fixawy
                 options.SupportedUICultures = supportCulture;
             });
 
-            
-                                       
+
+
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
@@ -89,10 +114,10 @@ namespace Fixawy
 
             app.UseHttpsRedirection();
 
+            app.UseRequestLocalization(app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
+
             app.UseAuthentication();
             app.UseAuthorization();
-
-            app.UseRequestLocalization(app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
 
             app.MapControllers();
 

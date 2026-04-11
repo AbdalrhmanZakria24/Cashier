@@ -25,6 +25,7 @@ namespace Fixawy.DataAccess
         public DbSet<Product> Products { get; set; }
         public DbSet<DeviceSync> DeviceSyncs { get; set; }
         public DbSet<SyncQueue> SyncQueues { get; set; }
+        public DbSet<ApplicationuserOtp> applicationuserOtps { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -51,6 +52,14 @@ namespace Fixawy.DataAccess
 
             builder.Entity<Branch>()
                .HasIndex(p => p.TenantId);
+
+            builder.Entity<ApplicationUser>()
+                .HasIndex(u => u.UserName)
+                .IsUnique();
+
+            builder.Entity<ApplicationUser>()
+                .HasIndex(u => u.Email)
+                .IsUnique();
 
             builder.Entity<Order>()
                 .HasIndex(p => new { p.TenantId , p.BranchId});

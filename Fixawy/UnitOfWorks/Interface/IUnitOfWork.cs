@@ -17,6 +17,7 @@
         public IReposatory<Subscription> Subscription { get; }
         public IReposatory<SubscriptionLogs> SubscriptionsLog { get; }
         public IReposatory<Plan> Plan { get; }
+        public IReposatory<ApplicationuserOtp> ApplicationuserOtpReposatory { get; }
         public Task CommitAsync();
     }
 }

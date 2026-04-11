@@ -20,6 +20,7 @@ namespace Fixawy.UnitOfWorks
             IReposatory<OrderItem> OrderItemReposatory,
             IReposatory<Product> ProductReposatory,
             IReposatory<SyncLogs> SyncLogsReposatory,
+            IReposatory<ApplicationuserOtp> ApplicationuserOtpReposatory,
             IReposatory<SyncQueue> SyncQueueReposatory,
             IReposatory<Tenant> TenantReposatory,
             ApplicationDBContext  dBContext)
@@ -37,6 +38,7 @@ namespace Fixawy.UnitOfWorks
             this.OrderItemReposatory = OrderItemReposatory;
             this.ProductReposatory = ProductReposatory;
             this.SyncLogsReposatory = SyncLogsReposatory;
+            this.ApplicationuserOtpReposatory = ApplicationuserOtpReposatory;
             this.SyncQueueReposatory = SyncQueueReposatory;
             this.TenantReposatory = TenantReposatory;
             _dBContext = dBContext;
@@ -51,6 +53,7 @@ namespace Fixawy.UnitOfWorks
         public IReposatory<OrderItem> OrderItemReposatory { get; }
         public IReposatory<Product> ProductReposatory { get; }
         public IReposatory<SyncLogs> SyncLogsReposatory { get; }
+        public IReposatory<ApplicationuserOtp> ApplicationuserOtpReposatory { get; }
         public IReposatory<SyncQueue> SyncQueueReposatory { get; }
         public IReposatory<Tenant> TenantReposatory { get; }
         public IReposatory<Subscription> Subscription { get; }
