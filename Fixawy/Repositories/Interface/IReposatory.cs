@@ -24,5 +24,13 @@ namespace Fixawy.Repositories.Interface
            bool Tracking = true,
            CancellationToken cancellationToken = default
            );
+
+        public Task<IQueryable<T>> GetQueryable
+          (
+          Expression<Func<T, bool>>? expression = null,
+          Expression<Func<T, Object>>[]? include = null,
+          bool Tracking = true,
+          CancellationToken cancellationToken = default
+          );
     }
 }

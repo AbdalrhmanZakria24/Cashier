@@ -17,3 +17,7 @@ global using Fixawy.DBSeder.Intarface;
 global using Fixawy.DBSeder;
 global using Fixawy.ResponseStatus;
 global using Fixawy.EmailSender.Interface;
+global using Fixawy.Areas.Admin.DTOS.Request;
+global using Fixawy.Areas.Admin.DTOS.Response;
+global using Fixawy.Areas.Admin.Services;
+global using Fixawy.Areas.Admin.Services.Interface;

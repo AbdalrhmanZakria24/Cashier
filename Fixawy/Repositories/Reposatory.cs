@@ -77,5 +77,32 @@ namespace Fixawy.Repositories
 
             return await query.FirstOrDefaultAsync(cancellationToken);
         }
+
+        public async Task<IQueryable<T>> GetQueryable
+           (
+           Expression<Func<T, bool>>? expression = null,
+           Expression<Func<T, Object>>[]? include = null,
+           bool Tracking = true,
+           CancellationToken cancellationToken = default
+           )
+        {
+            var entities = _dbSet.AsQueryable();
+
+            if (expression is not null)
+                entities = entities.Where(expression);
+
+            if (include is not null)
+            {
+                foreach (var entity in include)
+                {
+                    entities = entities.Include(entity);
+                }
+            }
+
+            if (!Tracking)
+                entities = entities.AsNoTracking();
+
+            return  entities;
+        }
     }
 }
