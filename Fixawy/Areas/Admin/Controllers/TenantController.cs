@@ -40,7 +40,7 @@ namespace Fixawy.Areas.Admin.Controllers
                 },
                 Meta = new
                 {
-                    TotalTenant = result.totalTenant,
+                    TotalTenant = result.totalCount,
                     TotalPages = result.totalPages,
                     PageSize = pagination.PageSize,
                     Data = result.Data

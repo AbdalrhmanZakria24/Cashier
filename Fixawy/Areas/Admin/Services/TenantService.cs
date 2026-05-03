@@ -1,5 +1,4 @@
-﻿using Fixawy.Areas.Admin.Services.Interface;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace Fixawy.Areas.Admin.Services
@@ -73,7 +72,7 @@ namespace Fixawy.Areas.Admin.Services
                 pageSize = pagination.PageSize,
                 totalPages = totalPage,
                 currentPage = pagination.PageNumber,
-                totalTenant = count
+                totalCount = count
             };
 
         }

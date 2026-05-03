@@ -1,4 +1,4 @@
-﻿namespace Fixawy.Areas.Admin.DTOS.Request
+﻿namespace Fixawy.Areas.Admin.DTOS.Request.Search
 {
     public class TenantSearch
     {
