@@ -18,7 +18,7 @@ namespace Fixawy.Areas.Identity.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] Register register, CancellationToken cancellationToken)
         {
-            var result = await _accountService.Register(register, Request.Scheme);
+            var result = await _accountService.Register(register);
 
             if(!result.isSuccess)
             {

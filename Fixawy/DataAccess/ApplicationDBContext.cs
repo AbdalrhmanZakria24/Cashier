@@ -146,12 +146,18 @@ namespace Fixawy.DataAccess
             builder.Entity<OrderItem>()
                 .Property(i => i.Price)
                 .HasPrecision(18, 2);
+            builder.Entity<OrderItem>()
+                .Property(i => i.Quantity)
+                .HasPrecision(18, 2);
 
             builder.Entity<OrderItem>()
                .Property(i => i.Total)
                .HasPrecision(18, 2);
 
             builder.Entity<Subscription>()
+               .Property(s => s.Price)
+               .HasPrecision(18, 2);
+            builder.Entity<Plan>()
                .Property(s => s.Price)
                .HasPrecision(18, 2);
 

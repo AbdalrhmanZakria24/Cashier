@@ -2,7 +2,7 @@
 {
     public interface IAccountService
     {
-        public Task<IdentityResponse> Register(Register register, string Schema);
+        public Task<IdentityResponse> Register(Register register);
         public Task<IdentityResponse> ConfirmEmail(string token, string id);
         public  Task<IdentityResponse> Login(Login login);
         public Task<IdentityResponse> ForgetPassword(ForgetPassword forgetPassword, CancellationToken cancellationToken);

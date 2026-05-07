@@ -10,13 +10,15 @@ namespace Fixawy.Areas.Identity.Services
         private readonly ILogger<AccountService> _logger;
         private readonly IEmailSeder _emailSeder;
         private readonly ITokenService _tokenService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public AccountService(IUnitOfWork unitOfWork,
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<AccountService> logger,
             IEmailSeder emailSeder,
-            ITokenService tokenService)
+            ITokenService tokenService,
+            IHttpContextAccessor httpContextAccessor)
         {
             _unitOfWork = unitOfWork;
             _userManager = userManager;
@@ -24,6 +26,7 @@ namespace Fixawy.Areas.Identity.Services
             _logger = logger;
             _emailSeder = emailSeder;
             _tokenService = tokenService;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         private string GenerateConfirmEmailHtml(string link, string userName)
@@ -119,7 +122,7 @@ namespace Fixawy.Areas.Identity.Services
 </html>";
         }
 
-        public async Task<IdentityResponse> Register(Register register, string Schema)
+        public async Task<IdentityResponse> Register(Register register)
         {
             var checkEmail = await _userManager.FindByEmailAsync(register.email);
             var checkUserName = await _userManager.FindByNameAsync(register.UserName);
@@ -162,7 +165,11 @@ namespace Fixawy.Areas.Identity.Services
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(newUser);
             var tokenEncoded = Uri.EscapeDataString(token);
 
-            var link = $"{Schema}://localhost:7210/Identity/Account/ConfirmEmail?token={tokenEncoded}&id={newUser.Id}";
+            var request = _httpContextAccessor.HttpContext!.Request;
+            var host = request.Host.Value;
+            var Schema = request.Scheme;
+
+            var link = $"{Schema}://{host}/Identity/Account/ConfirmEmail?token={tokenEncoded}&id={newUser.Id}";
 
             var htmlMessage = GenerateConfirmEmailHtml(link, newUser.UserName);
 

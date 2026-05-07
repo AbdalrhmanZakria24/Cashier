@@ -1,0 +1,6 @@
+services:
+  fixawy:
+    image: ${DOCKER_REGISTRY-}fixawy
+    build:
+      context: .
+      dockerfile: Fixawy/Dockerfile
