@@ -15,6 +15,7 @@ namespace Fixawy.UnitOfWorks
             IReposatory<Payment> PaymentReposatory,
             IReposatory<Category> ServiceReposatory,
             IReposatory<Branch> BranchReposatory,
+            IReposatory<BranchProduct> BranchProductReposatory,
             IReposatory<WorkerSubscription> WorkerSubscriptionReposatory,
             IReposatory<DeviceSync> DeviceSyncReposatory,
             IReposatory<OrderItem> OrderItemReposatory,
@@ -33,6 +34,7 @@ namespace Fixawy.UnitOfWorks
             this.Paymentreposatory = PaymentReposatory;
             this.Categoryreposatory = ServiceReposatory;
             this.BranchReposatory = BranchReposatory;
+            this.BranchProductReposatory = BranchProductReposatory;
             this.WorkerSubscriptionreposatory = WorkerSubscriptionReposatory;
             this.DeviceSyncReposatory = DeviceSyncReposatory;
             this.OrderItemReposatory = OrderItemReposatory;
@@ -48,6 +50,7 @@ namespace Fixawy.UnitOfWorks
         public IReposatory<Payment> Paymentreposatory { get; }
         public IReposatory<Category> Categoryreposatory { get; }
         public IReposatory<Branch> BranchReposatory { get; }
+        public IReposatory<BranchProduct> BranchProductReposatory { get; }
         public IReposatory<WorkerSubscription> WorkerSubscriptionreposatory { get; }
         public IReposatory<DeviceSync> DeviceSyncReposatory { get; }
         public IReposatory<OrderItem> OrderItemReposatory { get; }

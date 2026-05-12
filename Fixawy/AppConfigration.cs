@@ -10,6 +10,7 @@ namespace Fixawy
             services.AddScoped<IReposatory<ApplicationUser>, Repositories.Reposatory<ApplicationUser>>();
             services.AddScoped<IReposatory<ApplicationuserOtp>, Repositories.Reposatory<ApplicationuserOtp>>();
             services.AddScoped<IReposatory<Branch>, Repositories.Reposatory<Branch>>();
+            services.AddScoped<IReposatory<BranchProduct>, Repositories.Reposatory<BranchProduct>>();
             services.AddScoped<IReposatory<Payment>, Repositories.Reposatory<Payment>>();
             services.AddScoped<IReposatory<Category>, Repositories.Reposatory<Category>>();
             services.AddScoped<IReposatory<Order>, Repositories.Reposatory<Order>>();

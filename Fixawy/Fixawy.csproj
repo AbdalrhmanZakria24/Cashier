@@ -27,6 +27,7 @@
 	  <Folder Include="Areas\User\DTOS\Request\" />
 	  <Folder Include="Areas\User\DTOS\Response\" />
 	  <Folder Include="Areas\User\Services\" />
+	  <Folder Include="Terraform\" />
 	  <Folder Include="Utillity\" />
 	  <Folder Include="wwwroot\WorkerImages\" />
 	</ItemGroup>
