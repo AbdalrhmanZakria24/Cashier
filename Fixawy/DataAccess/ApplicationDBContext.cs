@@ -26,6 +26,7 @@ namespace Fixawy.DataAccess
         public DbSet<DeviceSync> DeviceSyncs { get; set; }
         public DbSet<SyncQueue> SyncQueues { get; set; }
         public DbSet<ApplicationuserOtp> applicationuserOtps { get; set; }
+        public DbSet<BranchProduct> branchProducts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -49,6 +50,9 @@ namespace Fixawy.DataAccess
 
             builder.Entity<Category>()
                .HasIndex(p => p.TenantId);
+
+            builder.Entity<BranchProduct>()
+                .HasIndex(p => new { p.ProductId ,p.BranchId});
 
             builder.Entity<Branch>()
                .HasIndex(p => p.TenantId);
@@ -105,6 +109,18 @@ namespace Fixawy.DataAccess
               .WithMany()
               .HasForeignKey(b => b.TenantId)
               .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<BranchProduct>()
+                .HasOne(p=>p.Product)
+                .WithMany(p=>p.branchProducts)
+                .HasForeignKey(p=>p.ProductId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<BranchProduct>()
+                .HasOne(p => p.Branch)
+                .WithMany(p=>p.branchProducts)
+                .HasForeignKey(P => P.BranchId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<DeviceSync>()
               .HasOne(d => d.Tenant)

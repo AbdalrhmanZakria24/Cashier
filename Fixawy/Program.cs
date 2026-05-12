@@ -94,11 +94,17 @@ namespace Fixawy
 
             var app = builder.Build();
 
-            //dbInitializer
-            using (var scope = app.Services.CreateScope())
+            try
             {
-                var dbInitializer = scope.ServiceProvider.GetRequiredService<IDBInitializar>();
-                dbInitializer.Initialize();
+                using (var scope = app.Services.CreateScope())
+                {
+                    var dbInitializer = scope.ServiceProvider.GetRequiredService<IDBInitializar>();
+                    dbInitializer.Initialize();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("DB Init failed: " + ex.Message);
             }
 
 

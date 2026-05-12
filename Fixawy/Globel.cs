@@ -21,6 +21,7 @@ global using Fixawy.Areas.Admin.DTOS.Request;
 global using Fixawy.Areas.Admin.DTOS.Request.Tenant;
 global using Fixawy.Areas.Admin.DTOS.Request.Search;
 global using Fixawy.Areas.Admin.DTOS.Request.Bransh;
+global using Fixawy.Areas.Admin.DTOS.Request.Category;
 global using Fixawy.Areas.Admin.DTOS.Response;
 global using Fixawy.Areas.Admin.Services;
 global using Fixawy.Areas.Admin.Services.Interface;

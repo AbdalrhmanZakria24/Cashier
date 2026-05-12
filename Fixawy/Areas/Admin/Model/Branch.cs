@@ -15,5 +15,7 @@ namespace Fixawy.Areas.Admin.Model
         public string Address { get; set; } = string.Empty;
 
         public bool IsActive { get; set; } = true;
+
+        public ICollection<BranchProduct> branchProducts { get; set; } = new List<BranchProduct>();
     }
 }

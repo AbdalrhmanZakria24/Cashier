@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fixawy-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fixawy
+  template:
+    metadata:
+      labels:
+        app: fixawy
+    spec:
+      hostAliases:
+      - ip: "127.0.0.1"
+        hostnames:
+        - "host.docker.internal"
+      containers:
+      - name: fixawy-api
+        image: fixawy:dev 
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        env:
+          - name: ConnectionStrings__DefaultConnection
+            value: "Data Source=host.docker.internal;Initial Catalog=CashierPos;User Id=sa;Password=Bodyzakria24@;TrustServerCertificate=True;"
+          - name: ASPNETCORE_URLS
+            value: "http://+:8080"

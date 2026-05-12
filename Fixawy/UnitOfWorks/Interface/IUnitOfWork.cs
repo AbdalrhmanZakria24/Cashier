@@ -5,7 +5,7 @@
         public IReposatory<ApplicationUser> ApplicationUserreposatory { get; }
         public IReposatory<Order> Orderreposatory { get; }
         public IReposatory<Payment> Paymentreposatory { get; }
-        public IReposatory<Category> Servicereposatory { get; }
+        public IReposatory<Category> Categoryreposatory { get; }
         public IReposatory<Branch> BranchReposatory { get; }
         public IReposatory<WorkerSubscription> WorkerSubscriptionreposatory { get; }
         public IReposatory<DeviceSync> DeviceSyncReposatory { get; }

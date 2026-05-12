@@ -31,6 +31,7 @@ namespace Fixawy
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<ITenantService, TenantService>();
             services.AddScoped<IBranchServices, BranchServices>();
+            services.AddScoped<ICategoryService, CategoryService>();
             services.AddTransient<ITokenService, TokenService>();
 
             //Db Initializar
