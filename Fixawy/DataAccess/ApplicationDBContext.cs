@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Fixawy.Areas.Employee.Model;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,9 +11,6 @@ namespace Fixawy.DataAccess
         {
         }
 
-        public DbSet<Payment> Payments { get; set; }
-        public DbSet<WorkerSubscription> WorkerSubscriptions { get; set; }
-        public DbSet<Review> Reviews { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
@@ -27,6 +25,9 @@ namespace Fixawy.DataAccess
         public DbSet<SyncQueue> SyncQueues { get; set; }
         public DbSet<ApplicationuserOtp> applicationuserOtps { get; set; }
         public DbSet<BranchProduct> branchProducts { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
+        public DbSet<Promotion> promotions { get; set; }
+        public DbSet<Cart> carts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -76,6 +77,16 @@ namespace Fixawy.DataAccess
 
             builder.Entity<SyncQueue>()
                 .HasIndex(x => new { x.Entity, x.EntityId });
+
+            builder.Entity<Promotion>()
+                .HasIndex(x => x.Code);
+
+            builder.Entity<Promotion>()
+                .HasIndex(x => new { x.Code ,x.IsActive,x.EndDate});
+
+            builder.Entity<Promotion>()
+                .HasIndex(x => new {x.IsActive,x.MaxUse});
+
 
             // Fix IdentityPasskeyData
             builder.Entity<IdentityPasskeyData>().HasNoKey();
@@ -141,12 +152,6 @@ namespace Fixawy.DataAccess
                 .HasForeignKey(sl => sl.SubscriptionId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Entity<Payment>()
-                .HasOne(x=>x.Tenant)
-                .WithMany()
-                .HasForeignKey(x=>x.TenantId)
-                .OnDelete(deleteBehavior: DeleteBehavior.Restrict);
-
             builder.Entity<Product>()
                 .Property(p => p.Price)
                 .HasPrecision(18, 2);
@@ -155,13 +160,6 @@ namespace Fixawy.DataAccess
                 .Property(p => p.Cost)
                 .HasPrecision(18, 2);
 
-            builder.Entity<Order>()
-                .Property(o => o.Amount)
-                .HasPrecision(18, 2);
-
-            builder.Entity<OrderItem>()
-                .Property(i => i.Price)
-                .HasPrecision(18, 2);
             builder.Entity<OrderItem>()
                 .Property(i => i.Quantity)
                 .HasPrecision(18, 2);

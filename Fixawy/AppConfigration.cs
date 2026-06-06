@@ -11,7 +11,7 @@ namespace Fixawy
             services.AddScoped<IReposatory<ApplicationuserOtp>, Repositories.Reposatory<ApplicationuserOtp>>();
             services.AddScoped<IReposatory<Branch>, Repositories.Reposatory<Branch>>();
             services.AddScoped<IReposatory<BranchProduct>, Repositories.Reposatory<BranchProduct>>();
-            services.AddScoped<IReposatory<Payment>, Repositories.Reposatory<Payment>>();
+            //services.AddScoped<IReposatory<Payment>, Repositories.Reposatory<Payment>>();
             services.AddScoped<IReposatory<Category>, Repositories.Reposatory<Category>>();
             services.AddScoped<IReposatory<Order>, Repositories.Reposatory<Order>>();
             services.AddScoped<IReposatory<OrderItem>, Repositories.Reposatory<OrderItem>>();
@@ -20,10 +20,12 @@ namespace Fixawy
             services.AddScoped<IReposatory<DeviceSync>, Repositories.Reposatory<DeviceSync>>();
             services.AddScoped<IReposatory<SyncQueue>, Repositories.Reposatory<SyncQueue>>();
             services.AddScoped<IReposatory<Tenant>, Repositories.Reposatory<Tenant>>();
-            services.AddScoped<IReposatory<WorkerSubscription>, Repositories.Reposatory<WorkerSubscription>>();
             services.AddScoped<IReposatory<SubscriptionLogs>, Repositories.Reposatory<SubscriptionLogs>>();
             services.AddScoped<IReposatory<Subscription>, Repositories.Reposatory<Subscription>>();
             services.AddScoped<IReposatory<Plan>, Repositories.Reposatory<Plan>>();
+            services.AddScoped<IReposatory<Cart>, Repositories.Reposatory<Cart>>();
+            services.AddScoped<IReposatory<CartItem>, Repositories.Reposatory<CartItem>>();
+            services.AddScoped<IReposatory<Promotion>, Repositories.Reposatory<Promotion>>();
 
             //Unit of work
             services.AddScoped<IUnitOfWork,UnitOfWork>();
@@ -33,6 +35,8 @@ namespace Fixawy
             services.AddScoped<ITenantService, TenantService>();
             services.AddScoped<IBranchServices, BranchServices>();
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ICartService, CartServiec>();
             services.AddTransient<ITokenService, TokenService>();
 
             //Db Initializar

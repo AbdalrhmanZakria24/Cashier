@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Fixawy.Areas.Admin.Controllers
@@ -6,6 +7,7 @@ namespace Fixawy.Areas.Admin.Controllers
     [Area(nameof(Admin))]
     [Route("[area]/[controller]")]
     [ApiController]
+    [Authorize(Roles = $"{Rl.Tentant} ,{Rl.SuperAdmin}")]
     public class BranchController : ControllerBase
     {
         private readonly IBranchServices _branchServices;
@@ -36,6 +38,7 @@ namespace Fixawy.Areas.Admin.Controllers
         }
 
         [HttpGet("Get")]
+        [Authorize(Roles = $"{Rl.Tentant} ,{Rl.SuperAdmin}")]
         public async Task<IActionResult> Get([FromQuery] BranchSerch? branchSerch, [FromQuery] Pagination pagination)
         {
             var result = await _branchServices.Get(branchSerch, pagination);
@@ -60,6 +63,7 @@ namespace Fixawy.Areas.Admin.Controllers
         }
 
         [HttpPost("Create")]
+        [Authorize(Roles = $"{Rl.Tentant} ,{Rl.SuperAdmin}")]
         public async Task<IActionResult> Create([FromBody] AddBranch addBranch, CancellationToken cancellationToken)
         {
             var result = await _branchServices.Create(addBranch, cancellationToken);
@@ -72,6 +76,7 @@ namespace Fixawy.Areas.Admin.Controllers
         }
 
         [HttpPut("Update/{id}")]
+        [Authorize(Roles = $"{Rl.Tentant} ,{Rl.SuperAdmin}")]
         public async Task<IActionResult> Update([FromBody] DTOS.Request.Branch.UpdateBranch UpdateBranch,[FromRoute] long id)
         {
             var result = await _branchServices.Update(UpdateBranch, id);

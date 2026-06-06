@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Fixawy.Areas.Admin.Controllers
@@ -6,6 +7,7 @@ namespace Fixawy.Areas.Admin.Controllers
     [Area("Admin")]
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = $"{Rl.Tentant}, {Rl.BranchManager} ,{Rl.SuperAdmin}")]
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
@@ -36,6 +38,7 @@ namespace Fixawy.Areas.Admin.Controllers
         }
 
         [HttpGet("Get")]
+        [Authorize(Roles = $"{Rl.Tentant}, {Rl.BranchManager} ,{Rl.SuperAdmin}")]
         public async Task<IActionResult> Get([FromQuery] CategorySerch? categorySerch, [FromQuery] Pagination pagination)
         {
             var result = await _categoryService.Get(categorySerch, pagination);
@@ -62,6 +65,7 @@ namespace Fixawy.Areas.Admin.Controllers
         }
 
         [HttpPost("Create")]
+        [Authorize(Roles = $"{Rl.Tentant}, {Rl.BranchManager} ,{Rl.SuperAdmin}")]
         public async Task<IActionResult> Create([FromBody] AddCategory addCategory, CancellationToken cancellationToken)
         {
             var result = await _categoryService.Create(addCategory, cancellationToken);
@@ -73,6 +77,7 @@ namespace Fixawy.Areas.Admin.Controllers
         }
 
         [HttpPut("Update/{id}")]
+        [Authorize(Roles = $"{Rl.Tentant}, {Rl.BranchManager} ,{Rl.SuperAdmin}")]
         public async Task<IActionResult> Update([FromQuery] UpdateCategory updateCategory, [FromRoute] long id)
         {
             var result = await _categoryService.Update(updateCategory, id);
@@ -84,6 +89,7 @@ namespace Fixawy.Areas.Admin.Controllers
         }
 
         [HttpDelete("Delete/{id}")]
+        [Authorize(Roles = $"{Rl.Tentant}, {Rl.BranchManager} ,{Rl.SuperAdmin}")]
         public async Task<IActionResult> Delete([FromRoute] long id)
         {
             var result = await _categoryService.Delete(id);

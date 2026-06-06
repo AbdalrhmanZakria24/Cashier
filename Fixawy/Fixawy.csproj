@@ -23,10 +23,7 @@
 		<PackageReference Include="Scalar.AspNetCore" Version="2.13.20" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="Areas\User\Controllers\" />
-	  <Folder Include="Areas\User\DTOS\Request\" />
-	  <Folder Include="Areas\User\DTOS\Response\" />
-	  <Folder Include="Areas\User\Services\" />
+	  <Folder Include="Areas\Employee\DTOS\Request\" />
 	  <Folder Include="Terraform\" />
 	  <Folder Include="Utillity\" />
 	  <Folder Include="wwwroot\WorkerImages\" />

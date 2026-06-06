@@ -21,6 +21,16 @@ namespace Fixawy.Areas.Admin.Services
 
             if (product != null)
             {
+                if (product.MinPrice > product.MaxPrice)
+                {
+                    return new GetResponse<Product>
+                    {
+                        isSuccess = false,
+                        message = "Bad request",
+                        createAt = DateTime.UtcNow,
+                    };
+                }
+
                 filter = f =>
                 (string.IsNullOrEmpty(product.Name) || f.Name.Contains(product.Name)) &&
                 (product.CategoryId == 0 || f.CategoryId == product.CategoryId) &&
@@ -49,13 +59,14 @@ namespace Fixawy.Areas.Admin.Services
                 {
                     isSuccess = true,
                     message = "no data found",
-                    createAt = DateTime.Now,
+                    createAt = DateTime.UtcNow,
                 };
             }
 
             var allPage = (int)Math.Ceiling((double)count / pagination.PageSize);
 
             var result = await allProduct
+                .OrderBy(x => x.Id)
                 .Skip((pagination.PageNumber - 1) * pagination.PageSize)
                 .Take(pagination.PageSize)
                 .ToListAsync();
@@ -64,7 +75,7 @@ namespace Fixawy.Areas.Admin.Services
             {
                 isSuccess = true,
                 message = "All product",
-                createAt = DateTime.Now,
+                createAt = DateTime.UtcNow,
                 Data = result,
                 totalCount = count,
                 totalPages = allPage,
@@ -103,62 +114,79 @@ namespace Fixawy.Areas.Admin.Services
                 x.TenantId == addProduct.TenantId &&
                 x.CategoryId == addProduct.CategoryId);
 
-            if (product == null)
-            {
-                product = new Product
-                {
-                    Name = addProduct.Name,
-                    Price = addProduct.Price,
-                    Cost = addProduct.Cost,
-                    TenantId = addProduct.TenantId,
-                    CategoryId = addProduct.CategoryId,
-                    IsActive = addProduct.IsActive,
-                    Version = addProduct.Version,
-                };
+            //await using to whene scope end user await transaction.DisposeAsync() not transaction.Dispose();
 
-                await _unitOfWork.ProductReposatory.CreateAsync(product, cancellationToken);
+            await using var transaction = await _unitOfWork.BeginTransactionAsync();
+
+            try
+            {
+                if (product == null)
+                {
+                    product = new Product
+                    {
+                        Name = addProduct.Name,
+                        Price = addProduct.Price,
+                        Cost = addProduct.Cost,
+                        TenantId = addProduct.TenantId,
+                        CategoryId = addProduct.CategoryId,
+                        IsActive = addProduct.IsActive,
+                        Version = addProduct.Version,
+                    };
+
+                    await _unitOfWork.ProductReposatory.CreateAsync(product, cancellationToken);
+                }
                 await _unitOfWork.CommitAsync();
-            }
 
-            var branchIds = addProduct.AddProductBranches.Select(c => c.BranchId).ToList();
+                var branchIds = addProduct.AddProductBranches.Select(c => c.BranchId).ToList();
 
-            var existingProducts = await _unitOfWork.BranchProductReposatory
-                .GetAsync(c => c.ProductId == product!.Id && branchIds.Contains(c.BranchId));
+                var existingProducts = await _unitOfWork.BranchProductReposatory
+                    .GetAsync(c => c.ProductId == product!.Id && branchIds.Contains(c.BranchId));
 
-            var lookup = existingProducts.ToDictionary(x => x.BranchId);
+                var lookup = existingProducts.ToDictionary(x => x.BranchId);
 
-            foreach (var branchDto in addProduct.AddProductBranches)
-            {
-                if (lookup.TryGetValue(branchDto.BranchId, out var existing))
+                foreach (var branchDto in addProduct.AddProductBranches)
                 {
-                    existing.Quantity += branchDto.Quantity;
+                    if (lookup.TryGetValue(branchDto.BranchId, out var existing))
+                    {
+                        existing.Quantity += branchDto.Quantity;
+                    }
+                    else
+                    {
+                        await _unitOfWork.BranchProductReposatory.CreateAsync(
+                            new BranchProduct
+                            {
+                                ProductId = product!.Id,
+                                BranchId = branchDto.BranchId,
+                                Quantity = branchDto.Quantity
+                            },
+                            cancellationToken
+                        );
+                    }
                 }
-                else
+
+                await _unitOfWork.CommitAsync();
+                await transaction.CommitAsync();
+
+                return new AdminResponse
                 {
-                    await _unitOfWork.BranchProductReposatory.CreateAsync(
-                        new BranchProduct
-                        {
-                            ProductId = product!.Id,
-                            BranchId = branchDto.BranchId,
-                            Quantity = branchDto.Quantity
-                        },
-                        cancellationToken
-                    );
-                }
+                    isSuccess = true,
+                    message = "Product add successfully",
+                    createAt = DateTime.UtcNow,
+                };
             }
-
-            await _unitOfWork.CommitAsync();
-
-            return new AdminResponse
+            catch (Exception ex)
             {
-                isSuccess = true,
-                message = "Product add successfully",
-                createAt = DateTime.UtcNow,
-            };
+                await transaction.RollbackAsync();
 
+                return new AdminResponse
+                {
+                    isSuccess = false,
+                    message = ex.Message
+                };
+            }
         }
 
-        public async Task<AdminResponse> Update(UpdateProduct updateProduct, long id,CancellationToken cancellationToken)
+        public async Task<AdminResponse> Update(UpdateProduct updateProduct, long id, CancellationToken cancellationToken)
         {
             var product = await _unitOfWork.ProductReposatory.GetOneAsync(c => c.Id == id);
 
@@ -220,12 +248,12 @@ namespace Fixawy.Areas.Admin.Services
 
         }
 
-        public  async Task<AdminResponse> Delete(long id, long branchId )
+        public async Task<AdminResponse> Delete(long id, long branchId)
         {
             var Branchproduct = await _unitOfWork.BranchProductReposatory
-                .GetOneAsync(x=>x.ProductId== id && x.BranchId==branchId);
+                .GetOneAsync(x => x.ProductId == id && x.BranchId == branchId);
 
-            if(Branchproduct is null)
+            if (Branchproduct is null)
             {
                 return new AdminResponse
                 {
@@ -237,13 +265,13 @@ namespace Fixawy.Areas.Admin.Services
 
             Branchproduct.IsDeleted = true;
 
-             await _unitOfWork.CommitAsync();
+            await _unitOfWork.CommitAsync();
 
             return new AdminResponse
             {
                 isSuccess = true,
                 message = "Product removed from branch successfully",
-                createAt= DateTime.UtcNow,
+                createAt = DateTime.UtcNow,
             };
         }
     }

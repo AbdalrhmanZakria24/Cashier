@@ -16,6 +16,16 @@ namespace Fixawy
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            //cors police
+
+            builder.Services.AddCors(option =>
+            {
+                option.AddPolicy("AllowAngular", police =>
+                {
+                    police.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+                });
+            });
+
             // App Configration
 
             builder.Services.RegisterConfig();

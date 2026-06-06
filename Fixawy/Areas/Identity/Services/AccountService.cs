@@ -160,7 +160,7 @@ namespace Fixawy.Areas.Identity.Services
                 };
             }
 
-            await _userManager.AddToRoleAsync(newUser, Rl.Customer);
+            await _userManager.AddToRoleAsync(newUser, Rl.Tentant);
 
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(newUser);
             var tokenEncoded = Uri.EscapeDataString(token);

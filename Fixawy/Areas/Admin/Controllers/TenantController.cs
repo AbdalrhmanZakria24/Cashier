@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Fixawy.Areas.Admin.Controllers
@@ -6,6 +7,7 @@ namespace Fixawy.Areas.Admin.Controllers
     [Area(nameof(Admin))]
     [Route("[area]/[controller]")]
     [ApiController]
+    [Authorize(Roles = Rl.SuperAdmin)]
     public class TenantController : ControllerBase
     {
         private readonly ITenantService _tenantService;
@@ -16,6 +18,7 @@ namespace Fixawy.Areas.Admin.Controllers
         }
 
         [HttpGet("Get")]
+        [Authorize(Roles = Rl.SuperAdmin)]
         public async Task<IActionResult> Get([FromQuery]TenantSearch tenantSearch,[FromQuery]Pagination pagination)
         {
             var result=await _tenantService.GetAll(tenantSearch, pagination);
@@ -48,6 +51,7 @@ namespace Fixawy.Areas.Admin.Controllers
             });
         }
         [HttpPost("Create")]
+        [Authorize(Roles = Rl.SuperAdmin)]
         public async Task<IActionResult> Create([FromBody]AddTenant addTenant,CancellationToken cancellationToken) 
         {
             var result=await _tenantService.Create(addTenant, cancellationToken);
@@ -70,6 +74,7 @@ namespace Fixawy.Areas.Admin.Controllers
             });
         }
         [HttpPut("{tenantId}")]
+        [Authorize(Roles = Rl.SuperAdmin)]
         public async Task<IActionResult> Update(int tenantId, [FromBody] UpdateTenant updateTenant) 
         {
             var result=await _tenantService.Update(updateTenant, tenantId);
@@ -92,6 +97,7 @@ namespace Fixawy.Areas.Admin.Controllers
             });
         }
         [HttpDelete("{tenantId}")]
+        [Authorize(Roles = Rl.SuperAdmin)]
         public async Task<IActionResult> Delete(int tenantId) 
         {
             var result=await _tenantService.Delete(tenantId);
