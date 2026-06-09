@@ -13,7 +13,6 @@ namespace Fixawy.Areas.Employee.Controllers
     [Area("Employee")]
     [Route("[Area]/[controller]")]
     [ApiController]
-    [Authorize]
     public class paymentController : ControllerBase
     {
         private readonly IPaymentService _paymentService;
