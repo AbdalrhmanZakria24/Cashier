@@ -4,6 +4,7 @@ using Fixawy.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Fixawy.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20260606215759_UpdatePayment")]
+    partial class UpdatePayment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -143,6 +146,9 @@ namespace Fixawy.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<long>("BranchId")
+                        .HasColumnType("bigint");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -182,9 +188,11 @@ namespace Fixawy.DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BranchId");
+
                     b.HasIndex("PaymentId");
 
-                    b.HasIndex("TenantId");
+                    b.HasIndex("TenantId", "BranchId");
 
                     b.HasIndex("TenantId", "CreatedAt");
 
@@ -631,50 +639,6 @@ namespace Fixawy.DataAccess.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("CartItems");
-                });
-
-            modelBuilder.Entity("Fixawy.Areas.Employee.Model.Invoice", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<decimal>("Discount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("InvoiceNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsPaid")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("IssuedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long>("OrderId")
-                        .HasColumnType("bigint");
-
-                    b.Property<decimal>("SubTotal")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("Tax")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<long>("TenantId")
-                        .HasColumnType("bigint");
-
-                    b.Property<decimal>("Total")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId")
-                        .IsUnique();
-
-                    b.ToTable("Invoices");
                 });
 
             modelBuilder.Entity("Fixawy.Areas.Employee.Model.Payment", b =>
@@ -1161,6 +1125,12 @@ namespace Fixawy.DataAccess.Migrations
 
             modelBuilder.Entity("Fixawy.Areas.Admin.Model.Order", b =>
                 {
+                    b.HasOne("Fixawy.Areas.Admin.Model.Branch", "Branch")
+                        .WithMany()
+                        .HasForeignKey("BranchId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Fixawy.Areas.Employee.Model.Payment", "Payment")
                         .WithMany()
                         .HasForeignKey("PaymentId");
@@ -1170,6 +1140,8 @@ namespace Fixawy.DataAccess.Migrations
                         .HasForeignKey("TenantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Branch");
 
                     b.Navigation("Payment");
 
@@ -1333,17 +1305,6 @@ namespace Fixawy.DataAccess.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Fixawy.Areas.Employee.Model.Invoice", b =>
-                {
-                    b.HasOne("Fixawy.Areas.Admin.Model.Order", "Order")
-                        .WithOne("Invoice")
-                        .HasForeignKey("Fixawy.Areas.Employee.Model.Invoice", "OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Order");
-                });
-
             modelBuilder.Entity("Fixawy.Areas.Employee.Model.Payment", b =>
                 {
                     b.HasOne("Fixawy.Areas.Identity.Model.ApplicationUser", "ApplicationUser")
@@ -1464,8 +1425,6 @@ namespace Fixawy.DataAccess.Migrations
 
             modelBuilder.Entity("Fixawy.Areas.Admin.Model.Order", b =>
                 {
-                    b.Navigation("Invoice");
-
                     b.Navigation("OrderItems");
                 });
 

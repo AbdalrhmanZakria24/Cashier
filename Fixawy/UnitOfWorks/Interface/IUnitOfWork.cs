@@ -7,12 +7,15 @@ namespace Fixawy.UnitOfWorks.Interface
     {
         public IReposatory<ApplicationUser> ApplicationUserreposatory { get; }
         public IReposatory<Order> Orderreposatory { get; }
-        //public IReposatory<Payment> Paymentreposatory { get; }
+        public IReposatory<Payment> Paymentreposatory { get; }
+        public IReposatory<PaymentTransaction> PaymentTransactionReposatory { get; }
         public IReposatory<Category> Categoryreposatory { get; }
+        public IReposatory<Invoice> InvoiceReposatory { get; }
         public IReposatory<Branch> BranchReposatory { get; }
         public IReposatory<DeviceSync> DeviceSyncReposatory { get; }
         public IReposatory<OrderItem> OrderItemReposatory { get; }
         public IReposatory<Product> ProductReposatory { get; }
+        public ICartItemReposatory RemoveRangeCartItemReposatories { get; }
         public IReposatory<SyncLogs> SyncLogsReposatory { get; }
         public IReposatory<SyncQueue> SyncQueueReposatory { get; }
         public IReposatory<Cart> Cartreposatory { get; }

@@ -20,10 +20,11 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.23.0" />
+		<PackageReference Include="QuestPDF" Version="2026.5.0" />
 		<PackageReference Include="Scalar.AspNetCore" Version="2.13.20" />
+		<PackageReference Include="Stripe.net" Version="52.0.0" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="Areas\Employee\DTOS\Request\" />
 	  <Folder Include="Terraform\" />
 	  <Folder Include="Utillity\" />
 	  <Folder Include="wwwroot\WorkerImages\" />

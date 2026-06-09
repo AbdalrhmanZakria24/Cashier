@@ -27,3 +27,4 @@ global using Fixawy.Areas.Admin.Services.Interface;
 global using Fixawy.Areas.Employee.Services.Interface;
 global using Fixawy.Areas.Employee.Services;
 global using Fixawy.Areas.Employee.Model;
+global using Fixawy.Repositories;

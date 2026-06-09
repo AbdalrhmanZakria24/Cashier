@@ -15,7 +15,8 @@ namespace Fixawy.UnitOfWorks
             IReposatory<Plan> Plan,
             IReposatory<ApplicationUser> ApplicationUserReposatory,
             IReposatory<Order> OrderReposatory,
-           // IReposatory<Payment> PaymentReposatory,
+            IReposatory<Payment> PaymentReposatory,
+            IReposatory<PaymentTransaction> PaymentTransactionReposatory,
             IReposatory<Category> ServiceReposatory,
             IReposatory<Branch> BranchReposatory,
             IReposatory<BranchProduct> BranchProductReposatory,
@@ -26,9 +27,11 @@ namespace Fixawy.UnitOfWorks
             IReposatory<ApplicationuserOtp> ApplicationuserOtpReposatory,
             IReposatory<SyncQueue> SyncQueueReposatory,
             IReposatory<Tenant> TenantReposatory,
+            IReposatory<Invoice> InvoiceReposatory,
             IReposatory<Cart> Cartreposatory,
             IReposatory<CartItem> CartItemreposatory,
             IReposatory<Promotion> Promotionreposatory,
+            ICartItemReposatory RemoveRangeCartItemReposatories,
             ApplicationDBContext  dBContext)
         {
             this.ApplicationUserreposatory = ApplicationUserReposatory;
@@ -36,7 +39,8 @@ namespace Fixawy.UnitOfWorks
             this.SubscriptionsLog = SubscriptionsLogs;
             this.Plan = Plan;
             this.Orderreposatory = OrderReposatory;
-            //this.Paymentreposatory = PaymentReposatory;
+            this.Paymentreposatory = PaymentReposatory;
+            this.PaymentTransactionReposatory = PaymentTransactionReposatory;
             this.Categoryreposatory = ServiceReposatory;
             this.BranchReposatory = BranchReposatory;
             this.BranchProductReposatory = BranchProductReposatory;
@@ -47,14 +51,17 @@ namespace Fixawy.UnitOfWorks
             this.ApplicationuserOtpReposatory = ApplicationuserOtpReposatory;
             this.SyncQueueReposatory = SyncQueueReposatory;
             this.TenantReposatory = TenantReposatory;
+            this.InvoiceReposatory = InvoiceReposatory;
             this.Cartreposatory = Cartreposatory;
             this.CartItemreposatory = CartItemreposatory;
             this.Promotionreposatory = Promotionreposatory;
+            this.RemoveRangeCartItemReposatories = RemoveRangeCartItemReposatories;
             _dBContext = dBContext;
         }
         public IReposatory<ApplicationUser> ApplicationUserreposatory { get; }
         public IReposatory<Order> Orderreposatory { get; }
-       // public IReposatory<Payment> Paymentreposatory { get; }
+        public IReposatory<Payment> Paymentreposatory { get; }
+        public IReposatory<PaymentTransaction> PaymentTransactionReposatory { get; }
         public IReposatory<Category> Categoryreposatory { get; }
         public IReposatory<Branch> BranchReposatory { get; }
         public IReposatory<BranchProduct> BranchProductReposatory { get; }
@@ -65,9 +72,11 @@ namespace Fixawy.UnitOfWorks
         public IReposatory<ApplicationuserOtp> ApplicationuserOtpReposatory { get; }
         public IReposatory<SyncQueue> SyncQueueReposatory { get; }
         public IReposatory<Tenant> TenantReposatory { get; }
+        public IReposatory<Invoice> InvoiceReposatory { get; }
         public IReposatory<Cart> Cartreposatory { get; }
         public IReposatory<CartItem> CartItemreposatory { get; }
         public IReposatory<Promotion> Promotionreposatory { get; }
+        public ICartItemReposatory RemoveRangeCartItemReposatories { get; }
         public IReposatory<Subscription> Subscription { get; }
         public IReposatory<SubscriptionLogs> SubscriptionsLog { get; }
         public IReposatory<Plan> Plan { get; }

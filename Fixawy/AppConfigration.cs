@@ -11,7 +11,9 @@ namespace Fixawy
             services.AddScoped<IReposatory<ApplicationuserOtp>, Repositories.Reposatory<ApplicationuserOtp>>();
             services.AddScoped<IReposatory<Branch>, Repositories.Reposatory<Branch>>();
             services.AddScoped<IReposatory<BranchProduct>, Repositories.Reposatory<BranchProduct>>();
-            //services.AddScoped<IReposatory<Payment>, Repositories.Reposatory<Payment>>();
+            services.AddScoped<IReposatory<Payment>, Repositories.Reposatory<Payment>>();
+            services.AddScoped<IReposatory<PaymentTransaction>, Repositories.Reposatory<PaymentTransaction>>();
+            services.AddScoped<IReposatory<Invoice>, Repositories.Reposatory<Invoice>>();
             services.AddScoped<IReposatory<Category>, Repositories.Reposatory<Category>>();
             services.AddScoped<IReposatory<Order>, Repositories.Reposatory<Order>>();
             services.AddScoped<IReposatory<OrderItem>, Repositories.Reposatory<OrderItem>>();
@@ -19,6 +21,7 @@ namespace Fixawy
             services.AddScoped<IReposatory<SyncLogs>, Repositories.Reposatory<SyncLogs>>();
             services.AddScoped<IReposatory<DeviceSync>, Repositories.Reposatory<DeviceSync>>();
             services.AddScoped<IReposatory<SyncQueue>, Repositories.Reposatory<SyncQueue>>();
+            services.AddScoped<ICartItemReposatory, CartItemReposatory>();
             services.AddScoped<IReposatory<Tenant>, Repositories.Reposatory<Tenant>>();
             services.AddScoped<IReposatory<SubscriptionLogs>, Repositories.Reposatory<SubscriptionLogs>>();
             services.AddScoped<IReposatory<Subscription>, Repositories.Reposatory<Subscription>>();
@@ -36,6 +39,7 @@ namespace Fixawy
             services.AddScoped<IBranchServices, BranchServices>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IPaymentService, PaymentService>();
             services.AddScoped<ICartService, CartServiec>();
             services.AddTransient<ITokenService, TokenService>();
 

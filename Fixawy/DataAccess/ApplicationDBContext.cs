@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 
 namespace Fixawy.DataAccess
 {
@@ -19,6 +20,7 @@ namespace Fixawy.DataAccess
         public DbSet<Branch> Branches { get; set; }
         public DbSet<Tenant> Tenants { get; set; }
         public DbSet<SyncLogs> SyncLogs { get; set; }
+        public DbSet<Invoice> Invoices { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<DeviceSync> DeviceSyncs { get; set; }
@@ -28,6 +30,8 @@ namespace Fixawy.DataAccess
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<Promotion> promotions { get; set; }
         public DbSet<Cart> carts { get; set; }
+        public DbSet<Payment> payments { get; set; }
+        public DbSet<PaymentTransaction> paymentTransactions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -67,7 +71,7 @@ namespace Fixawy.DataAccess
                 .IsUnique();
 
             builder.Entity<Order>()
-                .HasIndex(p => new { p.TenantId , p.BranchId});
+                .HasIndex(p => new { p.TenantId});
 
             builder.Entity<Order>()
                 .HasIndex(x => new { x.TenantId, x.CreatedAt });
@@ -91,11 +95,11 @@ namespace Fixawy.DataAccess
             // Fix IdentityPasskeyData
             builder.Entity<IdentityPasskeyData>().HasNoKey();
 
+
             builder.Entity<Order>()
-                .HasOne(x => x.Branch)
-                .WithMany()
-                .HasForeignKey(x => x.BranchId)
-                .OnDelete(DeleteBehavior.Restrict);
+               .HasOne(o => o.Invoice)
+               .WithOne(i => i.Order)
+               .HasForeignKey<Invoice>(i => i.OrderId);
 
             builder.Entity<OrderItem>()
                .HasOne(x => x.Order)
@@ -114,6 +118,18 @@ namespace Fixawy.DataAccess
                .WithMany()
                .HasForeignKey(x => x.TenantId)
                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<PaymentTransaction>()
+                .HasOne(p => p.Payment)
+                .WithMany()
+                .HasForeignKey(p => p.PaymentId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Payment>()
+                .HasOne(c => c.cart)
+                .WithOne()
+                .HasForeignKey<Payment>(c=> c.cartId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<Branch>()
               .HasOne(b => b.Tenant)

@@ -6,11 +6,10 @@
 
         public long TenantId { get; set; }
         public Tenant Tenant { get; set; } = null!;
-
-        public long BranchId { get; set; }
-        public Branch Branch { get; set; } = null!;
-
+        public Invoice? Invoice { get; set; }
         public string UserId { get; set; } = string.Empty;
+
+        public Payment? Payment { get; set; }
 
         public decimal SubTotal { get; set; }
         public decimal Discount { get; set; } = 0;
