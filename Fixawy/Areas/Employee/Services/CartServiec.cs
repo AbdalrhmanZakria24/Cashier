@@ -1,4 +1,5 @@
 ﻿using Fixawy.Areas.Employee.DTOS.Response;
+using Fixawy.DTOS.Response;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore.Storage.Json;

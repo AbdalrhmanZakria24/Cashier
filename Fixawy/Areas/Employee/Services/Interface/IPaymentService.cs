@@ -1,4 +1,6 @@
-﻿namespace Fixawy.Areas.Employee.Services.Interface
+﻿using Fixawy.DTOS.Response;
+
+namespace Fixawy.Areas.Employee.Services.Interface
 {
     public interface IPaymentService
     {

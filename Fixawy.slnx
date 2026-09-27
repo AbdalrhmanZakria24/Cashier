@@ -1,6 +1,10 @@
 <Solution>
+  <Project Path="../Cashier.Infrastructure/Cashier.Infrastructure.csproj" Id="6ebbe986-30f6-43e0-a6ea-cd58e9f56d00" />
+  <Project Path="Cashier.Application/Cashier.Application.csproj" Id="05b4fb73-23ec-444b-b291-23994ceb1ac5" />
+  <Project Path="Cashier.Domain/Cashier.Domain.csproj" Id="95a19dfa-6088-4289-b070-bcda410ea1d9" />
   <Project Path="docker-compose.dcproj">
     <Build />
   </Project>
   <Project Path="Fixawy/Fixawy.csproj" />
+  <Project Path="Shared/Shared.csproj" Id="1f17bbc1-e150-4963-bb9d-af0d56094afd" />
 </Solution>

@@ -1,4 +1,5 @@
 ﻿using Fixawy.Areas.Employee.DTOS.Response;
+using Fixawy.DTOS.Response;
 
 namespace Fixawy.Areas.Employee.Services.Interface
 {
