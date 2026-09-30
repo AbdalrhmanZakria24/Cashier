@@ -19,4 +19,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.3.13" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="CQRS\Command\Employee\Payment\" />
+  </ItemGroup>
+
 </Project>

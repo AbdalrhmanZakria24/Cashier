@@ -3,9 +3,6 @@
     public class Invoice
     {
         public long Id { get; set; }
-
-        public long TenantId { get; set; }
-
         public string InvoiceNumber { get; set; } = string.Empty;
 
         public long OrderId { get; set; }

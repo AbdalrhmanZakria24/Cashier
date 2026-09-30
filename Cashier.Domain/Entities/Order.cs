@@ -1,11 +1,10 @@
-﻿namespace Cashier.Domain.Entities
+﻿using Cashier.Domain.Enums;
+
+namespace Cashier.Domain.Entities
 {
     public class Order
     {
         public long Id { get; set; }
-
-        public long TenantId { get; set; }
-        public Tenant Tenant { get; set; } = null!;
         public Invoice? Invoice { get; set; }
         public string UserId { get; set; } = string.Empty;
 

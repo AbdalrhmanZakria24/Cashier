@@ -1,5 +1,4 @@
-﻿using Fixawy.DTOS.Request.Search;
-using MediatR;
+﻿using MediatR;
 
 namespace Cashier.Application.CQRS.Query.Branch.GetBranches
 {

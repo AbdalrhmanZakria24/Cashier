@@ -21,7 +21,6 @@ namespace Cashier.Application.Interface
         public IRepository<SyncLogs> SyncLogsReposatory { get; }
         public IRepository<ApplicationuserOtp> ApplicationuserOtpReposatory { get; }
         public IRepository<SyncQueue> SyncQueueReposatory { get; }
-        public IRepository<Tenant> TenantReposatory { get; }
         public IRepository<Invoice> InvoiceReposatory { get; }
         public IRepository<Cart> Cartreposatory { get; }
         public IRepository<CartItem> CartItemreposatory { get; }

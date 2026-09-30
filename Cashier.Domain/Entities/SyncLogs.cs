@@ -1,11 +1,10 @@
-﻿namespace Cashier.Domain.Entities
+﻿using Cashier.Domain.Enums;
+
+namespace Cashier.Domain.Entities
 {
     public class SyncLogs
     {
         public long Id { get; set; }
-
-        public long TenantId { get; set; }
-        public Tenant Tenants { get; set; } = null!;
 
         public long BranchId { get; set; }
         public Branch Branches { get; set; }

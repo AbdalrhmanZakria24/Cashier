@@ -27,7 +27,7 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Terraform\" />
-	  <Folder Include="wwwroot\WorkerImages\" />
+	  <Folder Include="wwwroot\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\Cashier.Application\Cashier.Application.csproj" />

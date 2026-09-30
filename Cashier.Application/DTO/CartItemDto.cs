@@ -1,9 +1,12 @@
-﻿namespace Fixawy.Areas.Employee.DTOS.Response
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Cashier.Application.DTO
 {
     public class CartItemDto
     {
-
-        public long ProductId { get; set; } 
+        public long ProductId { get; set; }
 
         public decimal Quantity { get; set; }
 

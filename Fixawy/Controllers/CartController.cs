@@ -1,121 +1,102 @@
-﻿using Fixawy.DTOS.Response;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-
-namespace Fixawy.Controllers
+﻿
+namespace Fixawy.Areas.Employee.Controllers
 {
-    [Area("Employee")]
-    [Route("[area]/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = $"{Rl.Tentant}, {Rl.BranchManager} ,{Rl.SuperAdmin},{Rl.Cashier}")]
+    [Authorize(Roles = $"{Rl.BranchManager},{Rl.SuperAdmin},{Rl.Cashier}")]
     public class CartController : ControllerBase
     {
-        private readonly ICartService _cartService;
+        private readonly IMediator _mediator;
 
-        public CartController(ICartService cartService)
+        public CartController(IMediator mediator)
         {
-            _cartService = cartService;
+            _mediator = mediator;
         }
 
-        protected IActionResult HandleError(AdminResponse result)
+        [HttpGet]
+        public async Task<IActionResult> GetCart(
+            string? code,
+            CancellationToken cancellationToken)
         {
-            return BadRequest(new ErrorMessage
-            {
-                code = "Error",
-                message = result.message
-            });
-        }
-        protected IActionResult HandleSuccess(AdminResponse result)
-        {
-            return Ok(new SuccessMessage
-            {
-                code = "Done",
-                message = result.message
-            });
-        }
+            var userId =
+                User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-        [HttpGet("Get/{UserId}")]
-        [Authorize(Roles = $"{Rl.Tentant}, {Rl.BranchManager} ,{Rl.SuperAdmin},{Rl.Cashier}")]
-        public async Task<IActionResult> Get([FromRoute] string UserId, [FromQuery] string? Code, CancellationToken cancellationToken)
-        {
-            var result = await _cartService.GetCart(UserId, Code, cancellationToken);
+            var result = await _mediator.Send(
+                new GetCartQuery(
+                    userId!,
+                    code),
+                cancellationToken);
 
-            if (!result.IsSuccess)
-            {
-                return BadRequest(new ErrorMessage
-                {
-                    code = "Error",
-                    message = result.Massege
-                });
-            }
-
-            return Ok(new
-            {
-                Status = new SuccessMessage
-                {
-                    code = "Done",
-                    message = result.Massege
-                },
-                Data = new
-                {
-                    Data = result.data
-                },
-                OverView = new
-                {
-                    TotalProduct = result.data.TotalAmount,
-                    TotalCount = result.data.ItemsCount
-                }
-            });
-
+            return this.ToActionResult<CartResponseDto>(result);
         }
 
-        [HttpPost("AddInCart/{UserId}/{ProductId}")]
-        [Authorize(Roles = $"{Rl.Tentant}, {Rl.BranchManager} ,{Rl.SuperAdmin},{Rl.Cashier}")]
-        public async Task<IActionResult> AddInCart([FromRoute] string UserId, [FromRoute] long ProductId, [FromQuery] decimal Quantity, CancellationToken cancellationToken)
+        [HttpPost("items")]
+        public async Task<IActionResult> AddToCart(
+            AddToCartCommand request,
+            CancellationToken cancellationToken)
         {
-            var result = await _cartService.AddInCart(ProductId, UserId, Quantity, cancellationToken);
+            var userId =
+                User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (!result.isSuccess)
-                return HandleError(result);
+            var result = await _mediator.Send(
+                new AddToCartCommand(
+                    request.ProductId,
+                    userId!,
+                    request.Quantity),
+                cancellationToken);
 
-            return HandleSuccess(result);
+            return this.ToActionResult<bool>(result);
         }
 
-        [HttpPatch("InCrease/{UserId}/{ProductId}")]
-        [Authorize(Roles = $"{Rl.Tentant}, {Rl.BranchManager} ,{Rl.SuperAdmin},{Rl.Cashier}")]
-        public async Task<IActionResult> InCrease([FromRoute] string UserId, [FromRoute] long ProductId, CancellationToken cancellationToken)
+        [HttpPost("items/{productId}/increase")]
+        public async Task<IActionResult> Increase(
+            long productId,
+            CancellationToken cancellationToken)
         {
-            var result = await _cartService.Increase(ProductId, UserId, cancellationToken);
+            var userId =
+                User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (!result.isSuccess)
-                return HandleError(result);
+            var result = await _mediator.Send(
+                new IncreaseCartItemCommand(
+                    productId,
+                    userId!),
+                cancellationToken);
 
-            return HandleSuccess(result);
+            return this.ToActionResult<bool>(result);
         }
 
-        [HttpPatch("DeCrease/{UserId}/{ProductId}")]
-        [Authorize(Roles = $"{Rl.Tentant}, {Rl.BranchManager} ,{Rl.SuperAdmin},{Rl.Cashier}")]
-        public async Task<IActionResult> Decrease([FromRoute] string UserId, [FromRoute] long ProductId, CancellationToken cancellationToken)
+        [HttpPost("items/{productId}/decrease")]
+        public async Task<IActionResult> Decrease(
+            long productId,
+            CancellationToken cancellationToken)
         {
-            var result = await _cartService.Decrease(ProductId, UserId, cancellationToken);
+            var userId =
+                User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (!result.isSuccess)
-                return HandleError(result);
+            var result = await _mediator.Send(
+                new DecreaseCartItemCommand(
+                    productId,
+                    userId!),
+                cancellationToken);
 
-            return HandleSuccess(result);
+            return this.ToActionResult<bool>(result);
         }
 
-        [HttpDelete("Remove/{UserId}/{ProductId}")]
-        [Authorize(Roles = $"{Rl.Tentant}, {Rl.BranchManager} ,{Rl.SuperAdmin},{Rl.Cashier}")]
-        public async Task<IActionResult> Remove([FromRoute] string UserId, [FromRoute] long ProductId, CancellationToken cancellationToken)
+        [HttpDelete("items/{productId}")]
+        public async Task<IActionResult> Remove(
+            long productId,
+            CancellationToken cancellationToken)
         {
-            var result = await _cartService.Remove(ProductId, UserId, cancellationToken);
+            var userId =
+                User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (!result.isSuccess)
-                return HandleError(result);
+            var result = await _mediator.Send(
+                new RemoveFromCartCommand(
+                    productId,
+                    userId!),
+                cancellationToken);
 
-            return HandleSuccess(result);
+            return this.ToActionResult<bool>(result);
         }
     }
 }

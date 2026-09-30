@@ -4,9 +4,6 @@
     {
         public long Id { get; set; }
 
-        public long TenantId { get; set; }
-        public Tenant Tenant { get; set; } = null!;
-
         public string ApplicationUserId { get; set; } = string.Empty;
         public ApplicationUser ApplicationUser { get; set; } = null!;
 

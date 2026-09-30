@@ -4,9 +4,6 @@
     {
         public long Id { get; set; }
 
-        public long TenantId { get; set; }
-        public Tenant Tenant { get; set; } = null!;
-
         public long CategoryId { get; set; }
         public Category Category { get; set; } = null!;
 
